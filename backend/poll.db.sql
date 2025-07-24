@@ -1,0 +1,28 @@
+BEGIN TRANSACTION;
+DROP TABLE IF EXISTS "polls";
+CREATE TABLE `polls` (`id` integer NOT NULL PRIMARY KEY AUTOINCREMENT, `question` text NOT NULL, `options` json NOT NULL, `votenums` json NOT NULL, `user_polls` integer NOT NULL, CONSTRAINT `polls_users_polls` FOREIGN KEY (`user_polls`) REFERENCES `users` (`id`) ON DELETE NO ACTION);
+DROP TABLE IF EXISTS "users";
+CREATE TABLE `users` (`id` integer NOT NULL PRIMARY KEY AUTOINCREMENT, `username` text NOT NULL, `password` text NOT NULL);
+DROP TABLE IF EXISTS "votes";
+CREATE TABLE `votes` (`id` integer NOT NULL PRIMARY KEY AUTOINCREMENT, `option` text NOT NULL, `poll_votes` integer NOT NULL, `user_votes` integer NOT NULL, CONSTRAINT `votes_polls_votes` FOREIGN KEY (`poll_votes`) REFERENCES `polls` (`id`) ON DELETE NO ACTION, CONSTRAINT `votes_users_votes` FOREIGN KEY (`user_votes`) REFERENCES `users` (`id`) ON DELETE NO ACTION);
+INSERT INTO "polls" ("id","question","options","votenums","user_polls") VALUES (2,'fdssdf',X'5b22736664667364736664222c22736466667364736466222c226673646673647364667366222c22736664736664667364736466222c22736466736664736664736466225d',X'7b226673646673647364667366223a302c22736466667364736466223a302c22736466736664736664736466223a302c22736664667364736664223a302c22736664736664667364736466223a307d',0),
+ (4,'sfgfsfggsf',X'5b22736766667367222c226467666467666467225d',X'7b226467666467666467223a302c22736766667367223a307d',0),
+ (6,'uhh?',X'5b227568686868686868686868686868686868222c227568225d',X'7b227568223a302c227568686868686868686868686868686868223a307d',0),
+ (7,'Mikin poll',X'5b2231222c2232225d',X'7b2231223a302c2232223a307d',1),
+ (13,'sdfsfd',X'5b22736466736466667364222c227366647364666673225d',X'7b22736466736466667364223a302c227366647364666673223a307d',0);
+INSERT INTO "users" ("id","username","password") VALUES (0,'petar','petar'),
+ (1,'mika','mika'),
+ (2,'zika','zika');
+INSERT INTO "votes" ("id","option","poll_votes","user_votes") VALUES (1,'sfdfsdsfd',2,0),
+ (3,'dgfdgfdg',4,0),
+ (4,'sfdfsdsfd',2,1),
+ (5,'sgffsg',4,1),
+ (7,'uhhhhhhhhhhhhhhhh',6,0),
+ (8,'1',7,0),
+ (9,'1',7,1),
+ (14,'sfdfsdsfd',2,2),
+ (15,'dgfdgfdg',4,2),
+ (17,'sdfsdffsd',13,0);
+DROP INDEX IF EXISTS "users_username_key";
+CREATE UNIQUE INDEX `users_username_key` ON `users` (`username`);
+COMMIT;

@@ -12,15 +12,15 @@ func InitializeRoutes(client *ent.Client) *httprouter.Router {
 	h := &handlers.PollHandler{Client: client}
 	uh := &handlers.UserHandler{Client: client}
 
-	router.GET("/api/polls", h.ListPolls)
+	router.GET("/polls", h.ListPolls)
 
-	router.POST("/api/polls", h.CreatePoll)
-	router.GET("/api/polls/:id", h.GetPoll)
-	router.POST("/api/polls/:id/vote", h.VotePoll)
-	router.POST("/api/polls/:id/delete", h.Delete)
+	router.POST("/polls", h.CreatePoll)
+	router.GET("/polls/:id", h.GetPoll)
+	router.POST("/polls/:id/vote", h.VotePoll)
+	router.POST("/polls/:id/delete", h.Delete)
 
-	router.POST("/api/register", uh.Register)
-	router.POST("/api/login", uh.Login)
+	router.POST("/register", uh.Register)
+	router.POST("/login", uh.Login)
 
 	return router
 }

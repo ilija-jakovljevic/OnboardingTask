@@ -7,6 +7,8 @@ require (
 	github.com/julienschmidt/httprouter v1.3.0
 )
 
+require github.com/lib/pq v1.10.9 // indirect
+
 require (
 	ariga.io/atlas v0.31.1-0.20250212144724-069be8033e83 // indirect
 	entgo.io/ent v0.14.4 // indirect
