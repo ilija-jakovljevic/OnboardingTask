@@ -2,6 +2,7 @@ package main
 
 import (
 	"context"
+	"flag"
 	"log"
 	"net/http"
 	"os"
@@ -14,7 +15,9 @@ import (
 )
 
 func main() {
-	client, err := ent.Open("postgres", "host=localhost port=5432 user=ilija dbname=poll password=123 sslmode=disable")
+	dsn := flag.String("dsn", "host=localhost port=5432 user=ilija dbname=poll password=123 sslmode=disable", "Postgres DSN")
+	flag.Parse()
+	client, err := ent.Open("postgres", *dsn)
 	if err != nil {
 		log.Fatalf("failed opening connection to postgres: %v", err)
 	}
