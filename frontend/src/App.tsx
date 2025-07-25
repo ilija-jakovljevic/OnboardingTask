@@ -37,8 +37,11 @@ useEffect(() => {
       return res.json()
     })
     .then(data => {
-      setPolls(Array.isArray(data) ? data : [data])
-      setLoading(false)
+const validPolls = (Array.isArray(data) ? data : [data]).filter(
+    poll => poll && poll.question
+  )
+  setPolls(validPolls)
+  setLoading(false)
     })
     .catch(err => {
       setError(err.message)
